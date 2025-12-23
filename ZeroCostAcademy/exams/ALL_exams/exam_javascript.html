@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exam - Certificate Quiz</title>
+  <link href="../img/icon.png" rel="icon" type="image/png">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ff7f0e;
+    }
+
+    .question {
+      background: #fff;
+      border-radius: 8px;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .question h3 {
+      margin-bottom: 10px;
+    }
+
+    .options label {
+      display: block;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+
+    button {
+      display: block;
+      margin: 30px auto;
+      padding: 12px 30px;
+      background-color: #ff7f0e;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e76e00;
+    }
+
+    #result {
+      text-align: center;
+      font-size: 20px;
+      margin-top: 30px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Final Quiz - Certificate Test</h1>
+<form id="quizForm"></form>
+<button onclick="submitQuiz()">Submit Answers</button>
+<div id="result"></div>
+
+<script>
+  const allQuestions = [
+  { question: "What is the correct syntax to declare a constant in JavaScript?", options: ["let x = 5;", "const x = 5;", "var x = 5;", "#x = 5;"], answer: "const x = 5;" },
+  { question: "Which of the following is used to declare a variable in JavaScript?", options: ["int", "let", "string", "char"], answer: "let" },
+  { question: "Which symbol is used for comments in JavaScript?", options: ["//", "#", "<!-- -->", "**"], answer: "//" },
+  { question: "What will `typeof []` return in JavaScript?", options: ["array", "object", "list", "undefined"], answer: "object" },
+  { question: "Which method is used to parse a string to an integer in JavaScript?", options: ["parseString()", "toInteger()", "parseInt()", "int()"], answer: "parseInt()" },
+  { question: "How do you create a function in JavaScript?", options: ["function = myFunc()", "function myFunc()", "def myFunc()", "create function myFunc()"], answer: "function myFunc()" },
+  { question: "Which keyword is used to check conditions in JavaScript?", options: ["if", "switch", "check", "for"], answer: "if" },
+  { question: "How do you write an array in JavaScript?", options: ["var arr = (1, 2, 3)", "var arr = {1, 2, 3}", "var arr = [1, 2, 3]", "var arr = <1, 2, 3>"], answer: "var arr = [1, 2, 3]" },
+  { question: "Which method joins array elements into a string?", options: ["combine()", "concat()", "join()", "merge()"], answer: "join()" },
+  { question: "What is the output of `typeof null` in JavaScript?", options: ["null", "undefined", "object", "boolean"], answer: "object" },
+  { question: "Which function is used to print messages in the browser console?", options: ["log()", "console.print()", "print()", "console.log()"], answer: "console.log()" },
+  { question: "What does `NaN` stand for in JavaScript?", options: ["Not a Null", "No assigned Name", "Not a Number", "Negative and Null"], answer: "Not a Number" },
+  { question: "What is the result of `2 + '2'` in JavaScript?", options: ["4", "22", "NaN", "undefined"], answer: "22" },
+  { question: "Which symbol is used to compare value and type in JavaScript?", options: ["==", "===", "=", "!="], answer: "===" },
+  { question: "What does `Array.isArray([])` return?", options: ["false", "undefined", "true", "object"], answer: "true" },
+  { question: "Which loop is guaranteed to run at least once?", options: ["for", "while", "do...while", "foreach"], answer: "do...while" },
+  { question: "How do you add an element at the end of an array?", options: ["push()", "add()", "insert()", "append()"], answer: "push()" },
+  { question: "What does `event.preventDefault()` do?", options: ["Prevents page reload", "Prevents default browser behavior", "Stops all events", "Closes the tab"], answer: "Prevents default browser behavior" },
+  { question: "Which keyword is used to create a class in JavaScript?", options: ["object", "struct", "class", "function"], answer: "class" },
+  { question: "Which of these is NOT a JavaScript data type?", options: ["number", "string", "boolean", "character"], answer: "character" },
+  { question: "How do you call a function named `myFunc`?", options: ["call myFunc", "myFunc()", "call.function(myFunc)", "run(myFunc)"], answer: "myFunc()" },
+  { question: "How can you convert a string to a float in JavaScript?", options: ["parseInt()", "parseFloat()", "toFloat()", "float()"], answer: "parseFloat()" },
+  { question: "Which built-in method returns the length of a string?", options: ["size()", "getLength()", "count()", "length"], answer: "length" },
+  { question: "Which operator is used for exponentiation in JavaScript?", options: ["^", "**", "exp()", "^^"], answer: "**" },
+  { question: "What is the correct syntax for an arrow function?", options: ["function => ()", "() -> {}", "() => {}", "=> function()"], answer: "() => {}" }
+];
+
+  const shuffled = allQuestions.sort(() => 0.5 - Math.random());
+  const selectedQuestions = shuffled.slice(0, 20);
+  const form = document.getElementById("quizForm");
+
+  selectedQuestions.forEach((q, index) => {
+    const div = document.createElement("div");
+    div.className = "question";
+
+    const title = document.createElement("h3");
+    title.textContent = `${index + 1}. ${q.question}`;
+    div.appendChild(title);
+
+    const optionsDiv = document.createElement("div");
+    optionsDiv.className = "options";
+
+    q.options.forEach(opt => {
+      const label = document.createElement("label");
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = `q${index}`;
+      input.value = opt;
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(" " + opt));
+      optionsDiv.appendChild(label);
+    });
+
+    div.appendChild(optionsDiv);
+    form.appendChild(div);
+  });
+
+  function submitQuiz() {
+    let score = 0;
+
+    selectedQuestions.forEach((q, index) => {
+      const radios = document.getElementsByName(`q${index}`);
+      radios.forEach(r => {
+        if (r.checked && r.value === q.answer) {
+          score++;
+        }
+      });
+    });
+
+    const resultDiv = document.getElementById("result");
+    const btn = document.querySelector("button[onclick='submitQuiz()']");
+    btn.disabled = true;
+    btn.textContent = "Submitted";
+
+    if (score > 15) {
+            resultDiv.innerHTML = `<p style="color: green;">You scored ${score} out of 20.<br>Redirecting to certificate page...</p>`;
+            setTimeout(() => {
+                window.location.href = `Certificates_Generator/certificate_javascript.php?score=${score}`;
+            }, 2000);
+        } else {
+            resultDiv.innerHTML = `<p style="color: red;">You scored ${score} out of 20.<br><strong>Better Luck Next Time!</strong></p>`;
+            const backButton = document.createElement("a");
+            backButton.href = "course.php";
+            backButton.className = "back-button";
+            backButton.textContent = "Back to Course";
+            resultDiv.appendChild(backButton);
+        }
+  }
+</script>
+
+</body>
+</html>

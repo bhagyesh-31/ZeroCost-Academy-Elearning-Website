@@ -1,0 +1,81 @@
+/* Profile dropdown doesn't affect navbar height */
+.profile-dropdown .dropdown-menu {
+  display: none;
+  min-width: 250px;
+  right: 0;
+  top: 100%;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  z-index: 9999;
+}
+
+/* Show dropdown on toggle */
+.profile-dropdown .dropdown-menu.show {
+  display: block;
+}.profile-dropdown {
+  position: relative;
+}
+.profile-card {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 120%;
+  width: 270px;
+  background:rgb(214, 230, 247); /* Changed from white to light gray */
+  border-radius: 15px;
+  padding: 25px 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+
+.profile-img {
+  width: 75px;
+  height: 75px;
+  background: linear-gradient(135deg, #34c759, #28a745);
+  border-radius: 50%;
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: bold;
+  color: white;
+  box-shadow: 0 4px 10px rgba(52, 199, 89, 0.4);
+}
+
+.profile-name {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.profile-email {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+  word-break: break-all;
+}
+
+.profile-actions .btn-logout,
+.profile-actions .btn-login {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  width: 100%;
+}
+
+.profile-actions .btn-logout:hover,
+.profile-actions .btn-login:hover {
+  background: #0056b3;
+}

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZeroCost Academy : Download Course Notes</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <link href="img/icon.png" rel="icon">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/style.css" rel="stylesheet">
+    <link href="pop_style.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+        .navbar {
+            padding: 1rem 1.5rem;
+        }
+
+        /* .navbar-brand img {
+            height: auto;
+            width: auto;
+            max-height: 50px;  
+            margin-right: 10px;
+        } */
+
+        .bg-primary {
+            background-color: #007bff !important; /* A more vibrant primary color */
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .display-3 {
+            font-size: 3.5rem;
+            font-weight: bold;
+        }
+
+        .breadcrumb-item a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+        }
+
+        .breadcrumb-item.active {
+            color: white;
+        }
+
+        .download-section {
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .download-section h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        #openModalButton {
+            background-color: #28a745; /* A more inviting button color */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        #openModalButton:hover {
+            background-color: #218838;
+        }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            animation-name: fadeIn;
+            animation-duration: 0.4s;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto; /* Adjust top margin for better centering */
+            padding: 30px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation-name: slideIn;
+            animation-duration: 0.4s;
+        }
+
+        .modal-content h2 {
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+
+        .close-button {
+            color: #6c757d;
+            float: right;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #000;
+            text-decoration: none;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #495057;
+        }
+
+        #courseSelect {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        #modalDownloadButton {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        #modalDownloadButton:hover {
+            background-color: #0056b3;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0}
+            to {opacity: 1}
+        }
+
+        @keyframes slideIn {
+            from {transform: translateY(-100px); opacity: 0}
+            to {transform: translateY(0); opacity: 1}
+        }
+
+        .footer {
+            background-color: #343a40 !important;
+        }
+
+        .btn-link {
+            display: block;
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .btn-link:hover {
+            color: #fff;
+        }
+
+        .btn-social {
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            border: 1px solid #fff;
+            border-radius: 35px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-social:hover {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .copyright {
+            padding: 20px 0;
+            border-top: 1px solid rgba(256, 256, 256, .1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+        <a href="index.php" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+         <img src="img/logo_website.png" alt="" height="200px" width="200px">
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                style="border: none;">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="index.php" class="nav-item nav-link">Home</a>
+                <a href="about.php" class="nav-item nav-link">About</a>
+                <a href="courses.php" class="nav-item nav-link">Courses</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                    <div class="dropdown-menu fade-down m-0">
+                        <a href="team.php" class="dropdown-item">Our Team</a>
+                        <a href="testimonial.php" class="dropdown-item">Testimonial</a>
+                    </div>
+                </div>
+                <a href="contact.php" class="nav-item nav-link">Contact</a>
+            </div>
+            
+        </div>
+    </nav>
+
+    <div class="container-fluid bg-primary py-5 mb-5 text-center">
+        <h1 class="display-3 text-white">Download Your Learning Resources</h1>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center">
+                <li class="breadcrumb-item"><a class="text-white" href="index.php">Home</a></li>
+                <li class="breadcrumb-item text-white active" aria-current="page">PDF Downloads</li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="download-section">
+        <h1>Access Your Course Notes</h1>
+        <p class="lead mb-4">Easily download the PDF notes for the courses you are enrolled in. Click the button below to select a course and start your download.</p>
+        <button id="openModalButton" class="btn btn-primary btn-lg">Download PDF Notes</button>
+    </div>
+
+    <div id="courseModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Select Course to Download Notes</h2>
+            <label for="courseSelect">Choose a Course:</label>
+            <select id="courseSelect" class="form-select">
+                <option value="">-- Select a Course --</option>
+                <option value="NOTES/AWSNotes.pdf">AWS Fundamentals</option>
+                <option value="NOTES/COMPUTERNETWORKNOTES.pdf">Computer Networks Essentials</option>
+                <option value="NOTES/CyberSecurityNotes.pdf">Introduction to Cyber Security</option>
+                <option value="NOTES/EthicalHackingNotes.pdf">Ethical Hacking Basics</option>
+                <option value="NOTES/Java Notes.pdf">Java Programming Fundamentals</option>
+                <option value="NOTES/MicrosoftExcelNotes.pdf">Microsoft Excel for Beginners</option>
+                <option value="NOTES/MySQLNOTES.pdf">Introduction to MySQL</option>
+                <option value="NOTES/OPERATINGSYSTEMNOTES.pdf">Operating System Concepts</option>
+                <option value="NOTES/PythonNotes.pdf">Python Programming for Beginners</option>
+                <option value="NOTES/SoftwareDevelopmentNotes.pdf">Software Development Lifecycle</option>
+                <option value="NOTES/WebDesigningNotes.pdf">Fundamentals of Web Designing</option>
+                <option value="NOTES/WebDevelopementNotes.pdf">Introduction to Web Development</option>
+            </select>
+            <button id="modalDownloadButton" class="btn btn-success mt-3">Download Selected Notes</button>
+        </div>
+    </div>
+
+    <script>
+        // Get the modal
+        const modal = document.getElementById("courseModal");
+
+        // Get the button that opens the modal
+        const openModalButton = document.getElementById("openModalButton");
+
+        // Get the close button
+        const closeButton = document.getElementsByClassName("close-button")[0];
+
+        // Get the download button inside the modal
+        const modalDownloadButton = document.getElementById("modalDownloadButton");
+
+        // Get the course select dropdown inside the modal
+        const courseSelect = document.getElementById("courseSelect");
+
+        // Open the modal when the button is clicked
+        openModalButton.addEventListener('click', () => {
+            modal.style.display = "block";
+        });
+
+        // Close the modal when the close button is clicked
+        closeButton.addEventListener('click', () => {
+            modal.style.display = "none";
+        });
+
+        // Close the modal if the user clicks outside of it
+        window.addEventListener('click', (event) => {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        // Handle the download when the download button in the modal is clicked
+        modalDownloadButton.addEventListener('click', () => {
+            const selectedCourse = courseSelect.value;
+            if (selectedCourse) {
+                // Create a temporary link element
+                const link = document.createElement('a');
+                link.href = selectedCourse;
+                // Set the download attribute with a suggested filename
+                const filename = selectedCourse.substring(selectedCourse.lastIndexOf('/') + 1);
+                link.download = filename;
+                // Programmatically click the link to trigger the download
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link); // Clean up the temporary link
+                modal.style.display = "none"; // Close the modal after download
+            } else {
+                alert('Please select a course first.');
+            }
+        });
+    </script>
+</body>
+</html>

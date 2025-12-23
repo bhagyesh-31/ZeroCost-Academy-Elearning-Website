@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ZeroCost Academy : ChatBot</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Favicon -->
+    <link href="img/icon.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+
+
+<!-- Header Start -->
+<div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">ChatBot</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+<!-- ChatBot Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-8 mx-auto wow fadeInUp" data-wow-delay="0.3s">
+                <h6 class="section-title bg-white text-start pe-3">Chat with Us</h6>
+                <h1 class="mb-4" style="color: #fb873f;">ZeroCost Academy ChatBot</h1>
+                <p class="mb-4">Ask anything about our courses, help, or even coding tips!</p>
+                <div class="bg-light p-4 rounded">
+                    <form id="chatForm">
+                        <div class="mb-3">
+                            <label for="question" class="form-label">Type Your Question</label>
+                            <textarea class="form-control" id="question" name="question" rows="4" placeholder="Ask anything..." required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="answer" class="form-label">Bot's Answer</label>
+                            <textarea class="form-control" id="answer" name="answer" rows="4" placeholder="The bot's response will appear here..." readonly></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-2 w-100">Ask</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ChatBot End -->
+
+<!-- ChatBot Logic -->
+<script>
+    document.getElementById("chatForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const question = document.getElementById("question").value;
+        const answerBox = document.getElementById("answer");
+        answerBox.value = "Thinking...";
+
+        const res = await fetch("http://localhost:3000/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: question })
+        });
+
+        const data = await res.json();
+        answerBox.value = data.reply;
+    });
+</script>
+
+
+<!-- Footer Start -->
+<div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container py-5">
+        <div class="row g-5">
+            <!-- Quick Links -->
+            <div class="col-lg-4 col-md-6">
+                <h4 class="text-white mb-3">Quick Link</h4>
+                <p><a class="text-light" href="about.php">About Us</a></p>
+                <p><a class="text-light" href="contact.php">Contact Us</a></p>
+                <p><a class="text-light" href="Privacy_Policy.html">Privacy Policy</a></p>
+                <p><a class="text-light" href="terms_and_conditions.html">Terms & Condition</a></p>
+                <p><a class="text-light" href="FAQs_and_help.html">FAQs & Help</a></p>
+            </div>
+            <!-- Contact Info -->
+            <div class="col-lg-4 col-md-6">
+                <h4 class="text-white mb-3">Contact</h4>
+                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>402107 Raigad, Lonere, Maharashtra</p>
+                <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+91 7057461009</p>
+                <p class="mb-2"><i class="fa fa-envelope me-3"></i>secretcoder@gmail.com</p>
+                <div class="d-flex pt-2">
+                    <a class="btn btn-outline-light btn-social" href="https://www.instagram.com/secret.coder_07" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a class="btn btn-outline-light btn-social" href="https://www.youtube.com/secret_coder" target="_blank"><i class="fab fa-youtube"></i></a>
+                    <a class="btn btn-outline-light btn-social" href="https://wa.me/7057461009" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    <a class="btn btn-outline-light btn-social" href="https://www.linkedin.com/in/secret.coder.07" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-outline-light btn-social" href="tel:+917057461009"><i class="fas fa-phone-alt"></i></a>
+                </div>
+            </div>
+            <!-- Newsletter -->
+            <div class="col-lg-4 col-md-6">
+                <h4 class="text-white mb-3">Subscribe to our Newsletter</h4>
+                <p>Subscribe now and join our growing community of learners committed to lifelong education!</p>
+                <div class="position-relative mx-auto" style="max-width: 400px;">
+                    <form action="#">
+                        <input class="form-control border-0 w-100 py-3 ps-4 pe-5" type="email" placeholder="Your email" required>
+                        <button type="submit" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">
+                            <a href="mailto:lahaneshriram2@gmail.com" class="text-white text-decoration-none">Subscribe</a>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Footer End -->
+
+<!-- Optional JS Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

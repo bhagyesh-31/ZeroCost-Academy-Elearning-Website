@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exam - Certificate Quiz</title>
+   <!-- Favicon -->
+   <link href="../img/icon.png" rel="icon" type="image/png">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ff7f0e;
+    }
+
+    .question {
+      background: #fff;
+      border-radius: 8px;
+      padding: 15px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .question h3 {
+      margin-bottom: 10px;
+    }
+
+    .options label {
+      display: block;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+
+    button {
+      display: block;
+      margin: 30px auto;
+      padding: 12px 30px;
+      background-color: #ff7f0e;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e76e00;
+    }
+
+    #result {
+      text-align: center;
+      font-size: 20px;
+      margin-top: 30px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Final Quiz - Certificate Test</h1>
+<form id="quizForm"></form>
+<button onclick="submitQuiz()">Submit Answers</button>
+<div id="result"></div>
+
+<script>
+const allQuestions = [
+  { question: "What does CSS stand for?", options: ["Creative Style Sheets", "Colorful Style Sheets", "Cascading Style Sheets", "Computer Style Sheets"], answer: "Cascading Style Sheets" },
+  { question: "Which HTML tag is used to link an external CSS file?", options: ["<style>", "<link>", "<css>", "<script>"], answer: "<link>" },
+  { question: "Which CSS property is used to change text color?", options: ["color", "text-color", "font-color", "foreground-color"], answer: "color" },
+  { question: "Which CSS property controls the text size?", options: ["font-style", "text-size", "font-size", "text-style"], answer: "font-size" },
+  { question: "Which property is used to change the background color in CSS?", options: ["color", "bgcolor", "background-color", "background"], answer: "background-color" },
+  { question: "What is the correct CSS syntax to change the font of an element?", options: ["font-family: Arial;", "font: Arial;", "text-font: Arial;", "typeface: Arial;"], answer: "font-family: Arial;" },
+  { question: "How do you make a list not display bullets?", options: ["list-style-type: none;", "bullet: none;", "list: no-bullets;", "text-style: none;"], answer: "list-style-type: none;" },
+  { question: "Which CSS property is used to make text bold?", options: ["font-weight", "font-style", "bold", "text-weight"], answer: "font-weight" },
+  { question: "Which value of the position property makes an element stay in place even when the page is scrolled?", options: ["static", "relative", "fixed", "absolute"], answer: "fixed" },
+  { question: "Which CSS property is used to center text?", options: ["align-text", "text-center", "text-align", "horizontal-align"], answer: "text-align" },
+  { question: "Which property is used to increase space inside an element?", options: ["margin", "padding", "border", "spacing"], answer: "padding" },
+  { question: "Which property increases the space outside an element?", options: ["padding", "spacing", "margin", "gap"], answer: "margin" },
+  { question: "What is the default position property value of an element in CSS?", options: ["relative", "absolute", "fixed", "static"], answer: "static" },
+  { question: "Which property is used to add a shadow around text?", options: ["text-shadow", "font-shadow", "shadow-text", "text-blur"], answer: "text-shadow" },
+  { question: "Which property is used to add space between letters?", options: ["letter-spacing", "text-spacing", "word-spacing", "spacing"], answer: "letter-spacing" },
+  { question: "How can you make a class in CSS?", options: [".classname", "#classname", "classname", "*classname"], answer: ".classname" },
+  { question: "How can you make an ID selector in CSS?", options: ["#idname", ".idname", "*idname", "$idname"], answer: "#idname" },
+  { question: "Which property controls the height of an element?", options: ["element-height", "height", "size-height", "box-height"], answer: "height" },
+  { question: "Which CSS property changes the style of the cursor?", options: ["cursor", "pointer", "mouse-style", "cursor-style"], answer: "cursor" },
+  { question: "Which of the following is a pseudo-class in CSS?", options: [":hover", "::after", "::first-line", ":before"], answer: ":hover" },
+  { question: "Which selector targets all `<p>` elements inside a `<div>`?", options: ["div > p", "div p", "div+p", "div.p"], answer: "div p" },
+  { question: "How do you apply a style to multiple classes?", options: [".class1 .class2", ".class1, .class2", ".class1.class2", "#class1, #class2"], answer: ".class1, .class2" },
+  { question: "Which property is used to set the width of an element?", options: ["element-width", "box-width", "width", "set-width"], answer: "width" },
+  { question: "Which CSS unit is relative to the font-size of the element?", options: ["em", "px", "%", "vh"], answer: "em" },
+  { question: "Which property adds space between words?", options: ["word-spacing", "letter-spacing", "space", "text-spacing"], answer: "word-spacing" }
+];
+
+
+  const shuffled = allQuestions.sort(() => 0.5 - Math.random());
+  const selectedQuestions = shuffled.slice(0, 20);
+  const form = document.getElementById("quizForm");
+
+  selectedQuestions.forEach((q, index) => {
+    const div = document.createElement("div");
+    div.className = "question";
+
+    const title = document.createElement("h3");
+    title.textContent = `${index + 1}. ${q.question}`;
+    div.appendChild(title);
+
+    const optionsDiv = document.createElement("div");
+    optionsDiv.className = "options";
+
+    q.options.forEach(opt => {
+      const label = document.createElement("label");
+      const input = document.createElement("input");
+      input.type = "radio";
+      input.name = `q${index}`;
+      input.value = opt;
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(" " + opt));
+      optionsDiv.appendChild(label);
+    });
+
+    div.appendChild(optionsDiv);
+    form.appendChild(div);
+  });
+
+  function submitQuiz() {
+    let score = 0;
+
+    selectedQuestions.forEach((q, index) => {
+      const radios = document.getElementsByName(`q${index}`);
+      radios.forEach(r => {
+        if (r.checked && r.value === q.answer) {
+          score++;
+        }
+      });
+    });
+
+    const resultDiv = document.getElementById("result");
+    const btn = document.querySelector("button[onclick='submitQuiz()']");
+    btn.disabled = true;
+    btn.textContent = "Submitted";
+
+    if (score > 15) {
+            resultDiv.innerHTML = `<p style="color: green;">You scored ${score} out of 20.<br>Redirecting to certificate page...</p>`;
+            setTimeout(() => {
+                window.location.href = `Certificates_Generator/certificate_css.php?score=${score}`;
+            }, 2000);
+        } else {
+            resultDiv.innerHTML = `<p style="color: red;">You scored ${score} out of 20.<br><strong>Better Luck Next Time!</strong></p>`;
+            const backButton = document.createElement("a");
+            backButton.href = "courses.php";
+            backButton.className = "back-button";
+            backButton.textContent = "Back to Course";
+            resultDiv.appendChild(backButton);
+        }
+  }
+</script>
+
+</body>
+</html>
