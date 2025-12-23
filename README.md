@@ -62,10 +62,10 @@ http://localhost/ZeroCost-Academy
 1. Install Ollama → https://ollama.com  
 
 2. Pull the Mistral model:
-```bash
+
 ollama pull mistral
 Run the chatbot:
-```
+
 
 
 
